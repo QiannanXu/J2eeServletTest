@@ -6,10 +6,10 @@
 <body>
 
 <form action="/login" method="post">
-    Username: <input type="text" name="user">
-    <br>
-    Password: <input type="password" name="password">
-    <br>
+    <label>Username:</label>
+    <input type="text" name="user">
+    <label>Password:</label>
+    <input type="password" name="password">
     <input type="submit" value="Login">
 </form>
 
