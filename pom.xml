@@ -23,4 +23,20 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <port>9090</port>
+                    <!-- application path always starts with /-->
+                    <path>/</path>
+                    <useTestClasspath>false</useTestClasspath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
