@@ -21,7 +21,8 @@ public class LoginServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-        requestDispatcher.include(request, response);
+//        requestDispatcher.include(request, response);
+        requestDispatcher.forward(request, response);
     }
 
     @Override
@@ -35,10 +36,14 @@ public class LoginServlet extends HttpServlet{
         if(userId.equals(realUserId) && password.equals(realPassword)){
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("userId", userId);
-            response.sendRedirect("/loginSuccess");
+            response.sendRedirect("/loginSuccess.jsp");
         }else{
-            doGet(request, response);
+
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            request.setAttribute("error", "Username or password is wrong");
+            requestDispatcher.forward(request, response);
         }
+
 
     }
 

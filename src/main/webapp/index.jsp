@@ -4,6 +4,7 @@
     <title>hello</title>
 </head>
 <body>
+<p>${requestScope.error}</p>
 
 <form action="/login" method="post">
     <label>Username:</label>
