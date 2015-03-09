@@ -18,6 +18,8 @@ import java.io.IOException;
         })
 public class LoginServlet extends HttpServlet{
 
+    private String name;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
@@ -28,6 +30,7 @@ public class LoginServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("user");
+        name = userId;
         String password = request.getParameter("password");
 
         String realUserId = getServletConfig().getInitParameter("user");
@@ -35,7 +38,7 @@ public class LoginServlet extends HttpServlet{
 
         if(userId.equals(realUserId) && password.equals(realPassword)){
             HttpSession httpSession = request.getSession();
-            httpSession.setAttribute("userId", userId);
+            httpSession.setAttribute("userId", name);
             response.sendRedirect("/loginSuccess.jsp");
         }else{
 

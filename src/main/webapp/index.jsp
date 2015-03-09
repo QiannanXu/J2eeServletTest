@@ -14,5 +14,15 @@
     <input type="submit" value="Login">
 </form>
 
+<p>File upload</p>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label>File:</label>
+    <input type="file" name="file" id="file" />
+    <label>Destination:</label>
+    <input type="text" value="/Users/qnxu/Projects/WorkShop/J2eeServletTest/src/main/resources" name="destination" />
+
+    <input type="submit" value="Upload" name="upload" id="upload" />
+</form>
+
 </body>
 </html>
