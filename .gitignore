@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Maven template
+.idea/
+target/
+J2eeServletTest.iml
+
+
