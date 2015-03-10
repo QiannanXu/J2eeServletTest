@@ -15,7 +15,8 @@ public class ThreadSecurityServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        message = request.getParameter("message");
+//        message = request.getParameter("message");
+        message = request.getQueryString();
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/threadSecurity.jsp");
         try {
             Thread.sleep(5000);

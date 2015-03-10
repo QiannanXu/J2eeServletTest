@@ -14,9 +14,11 @@
     <input type="submit" value="Login">
 </form>
 
-<a href="/upload">File Upload</a>
+<p><a href="/upload">File Upload</a></p>
 
-<a href="/parameters">More Parameters</a>
+<p><a href="/download">File Download</a></p>
+
+<p><a href="/parameters">More Parameters</a></p>
 
 <form action="/threadSecurity" method="get">
     <input type="text" name="message" value="HelloA" />
