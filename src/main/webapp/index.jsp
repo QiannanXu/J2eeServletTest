@@ -16,5 +16,17 @@
 
 <a href="/upload">File Upload</a>
 
+<a href="/parameters">More Parameters</a>
+
+<form action="/threadSecurity" method="get">
+    <input type="text" name="message" value="HelloA" />
+    <input type="submit" value="submit" />
+</form>
+
+<form action="/threadSecurity" method="get">
+    <input type="text" name="message" value="HelloB" />
+    <input type="submit" value="submit" />
+</form>
+
 </body>
 </html>
