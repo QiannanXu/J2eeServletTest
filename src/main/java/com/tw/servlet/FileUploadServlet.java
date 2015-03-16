@@ -30,7 +30,7 @@ public class FileUploadServlet extends HttpServlet{
     }
 
     private void processFileUpload(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html;charset=UTF-8");
+//        response.setContentType("text/html;charset=UTF-8");
 
         String path = request.getParameter("destination");
         Part filePart = request.getPart("file");
