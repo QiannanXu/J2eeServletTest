@@ -13,6 +13,7 @@ import java.io.*;
 @WebServlet(urlPatterns = {"/upload"})
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet{
+    private String path = "src/main/resources";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,9 +31,7 @@ public class FileUploadServlet extends HttpServlet{
     }
 
     private void processFileUpload(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        response.setContentType("text/html;charset=UTF-8");
 
-        String path = request.getParameter("destination");
         Part filePart = request.getPart("file");
         String fileName = getFileName(filePart);
 
@@ -40,9 +39,10 @@ public class FileUploadServlet extends HttpServlet{
         InputStream filecontent = null;
 
         try {
-            out = new FileOutputStream(new File(path + File.separator + fileName));
+            File file = new File(path + File.separator + fileName);
+            out = new FileOutputStream(file);
             filecontent = filePart.getInputStream();
-            int read = 0;
+            int read;
             byte[] bytes = new byte[1024];
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
