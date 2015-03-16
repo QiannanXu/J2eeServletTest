@@ -42,15 +42,21 @@ public class ParametersServlet extends HttpServlet{
 
         String bookName = request.getParameter("bookName");
         String[] bookType = request.getParameterValues("bookType");
+        String[] country = request.getParameterValues("country");
 
-        String choosenBookType = "";
-        for(int i=0; i<bookType.length; i++){
-            choosenBookType += bookType[i]+" ";
-        }
         request.setAttribute("bookName", bookName);
-        request.setAttribute("bookType", choosenBookType);
+        request.setAttribute("bookType", getBookInformation(bookType));
+        request.setAttribute("country", getBookInformation(country));
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/parameters.jsp");
         requestDispatcher.forward(request, response);
+    }
+
+    private String getBookInformation(String[] bookInfo) {
+        String choseBookInfo = "";
+        for(int i=0; i<bookInfo.length; i++){
+            choseBookInfo += bookInfo[i]+" ";
+        }
+        return choseBookInfo;
     }
 }

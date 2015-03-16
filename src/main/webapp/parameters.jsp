@@ -21,6 +21,12 @@
         <label><input type="checkbox" name="bookType" value="散文"/>散文</label>
         <label><input type="checkbox" name="bookType" value="诗歌"/>诗歌</label>
 
+        <label>国家：</label>
+        <select multiple="multiple" size="3" name="country">
+            <option value="中国">中国</option>
+            <option value="韩国">韩国</option>
+            <option value="英国">英国</option>
+        </select>
         <input type="submit" name="submit" value="Submit" />
     </form>
 
@@ -29,6 +35,8 @@
         <label>${requestScope.bookName}</label>
         <label>类型：</label>
         <label>${requestScope.bookType}</label>
+        <label>国家：</label>
+        <label>${requestScope.country}</label>
     </form>
 
 </body>
