@@ -1,6 +1,7 @@
 package com.tw.servlet;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -22,50 +23,47 @@ public class FileDownloadServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processFileDownload(request, response);
+        String filePath = "src/main/resources/a.png";
+        File downloadFile = new File(filePath);
+        FileInputStream inStream = new FileInputStream(downloadFile);
 
-        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/fileDownload.jsp");
-        requestDispatcher.forward(request, response);
-    }
+        // if you want to use a relative path to context root:
+        String relativePath = getServletContext().getRealPath("");
+        System.out.println("relativePath = " + relativePath);
 
-    private void processFileDownload(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String path = request.getParameter("destination");
-        Part filePart = request.getPart("file");
-        String fileName = getFileName(filePart);
+        // obtains ServletContext
+        ServletContext context = getServletContext();
 
-        OutputStream out = null;
-        InputStream filecontent = null;
+        // gets MIME type of the file
+        String mimeType = context.getMimeType(filePath);
+        if (mimeType == null) {
+            // set to binary type if MIME mapping not found
+            mimeType = "application/octet-stream";
+        }
+        System.out.println("MIME type: " + mimeType);
 
-        try {
-            out = new FileOutputStream(new File(path + File.separator + fileName));
-            filecontent = filePart.getInputStream();
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = filecontent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            request.setAttribute("message", "New File "+fileName+" created at"+path);
+        // modifies response
+        response.setContentType(mimeType);
+        response.setContentLength((int) downloadFile.length());
 
-        } catch (FileNotFoundException fne) {
-            request.setAttribute("message", "ERROR: You either did not specify a file to upload or are trying to download a file to a protected or nonexistent location.");
+        // forces download
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+        response.setHeader(headerKey, headerValue);
 
-        } finally {
-            if (out != null) {
-                out.close(); }
-            if (filecontent != null) {
-                filecontent.close();
-            }
+        // obtains response's output stream
+        OutputStream outStream = response.getOutputStream();
+
+        byte[] buffer = new byte[4096];
+        int bytesRead = -1;
+
+        while ((bytesRead = inStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
         }
 
+        inStream.close();
+        outStream.close();
+
     }
 
-    private String getFileName(final Part part) {
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(
-                        content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
-    }
 }

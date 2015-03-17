@@ -8,12 +8,8 @@
 <p>${requestScope.message}</p>
 
 <form action="/download" method="post" enctype="multipart/form-data">
-    <label>File:</label>
-    <input type="file" name="file" id="file" />
-    <label>Destination:</label>
-    <input type="text" value="/Users/qnxu/Projects/WorkShop/J2eeServletTest/src/main/resources" name="destination" />
 
-    <input type="submit" value="Download" name="Download" id="Download" />
+    <input type="submit" value="Download" />
 </form>
 </body>
 </html>
